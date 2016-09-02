@@ -10,7 +10,7 @@
 #include <iterator>
 #include <stdexcept>
 #include "Allocator.h"
-//#include "SetBase.h"
+#include "SetBase.h"
 
 
 template<class T>
@@ -43,7 +43,7 @@ public:
 
 
 template<class T>
-class SetOrderedArray
+class SetOrderedArray : public SetBase<T>
 {
 private:
     Allocator allocator;
@@ -78,7 +78,14 @@ public:
     ~SetOrderedArray() { ; }
 
 
-    // Методы для управления итератором
+    // Геттер для power
+    int getPower() const
+    {
+        return power;
+    }
+
+
+// Методы для управления итератором
     // iterator
     iterator begin();
     iterator end();
@@ -110,6 +117,8 @@ public:
 private:
 //    static void* operator new[]( std::size_t count ) { return allocator(count); }
 //    static void* operator new( std::size_t count ) { return allocator(count); }
+
+void insert( const T& a );
 };
 
 
@@ -166,11 +175,11 @@ inline bool IteratorSetOA<T>::operator!=( const IteratorSetOA<T>& other ) const
 
 template<class T>
 SetOrderedArray<T>::SetOrderedArray( std::initializer_list<T> list ) : allocator(sizeof(T)), pData((T*) allocator.alloc(
-        sizeof(T) * list.size())), power(list.size())
+        sizeof(T) * list.size()))
 {
-    T* tmp = pData;
     for (T x : list) {
-        *tmp++ = x;
+        insert(x);
+        ++power;
     }
 }
 
@@ -275,7 +284,7 @@ SetOrderedArray<T> SetOrderedArray<T>::operator|( const SetOrderedArray<T>& setB
         setC.add(pData[i++]);
 
     while (j < setB.power)
-        setC.add(pData[j++]);
+        setC.add(setB.pData[j++]);
 
     return setC;
 }
@@ -410,11 +419,24 @@ void SetOrderedArray<T>::add( const T& a )
     int i;
     static constexpr std::size_t sizeT = sizeof(T);
 
-    pData = (T*) allocator.alloc(sizeT);
+    pData = (T*) allocator.alloc(sizeT) - power;
     for (i = ++power - 2; i >= 0 && pData[i] > a; i--)
         pData[i + 1] = pData[i];
 
     pData[i + 1] = a;
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+template <class T>
+void SetOrderedArray<T>::insert( const T& a )
+{
+    for (int i = power - 1; i >= 0 && pData[i] > a; --i)
+        pData[i + 1] = pData[i];
 }
 
 
