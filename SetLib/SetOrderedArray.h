@@ -6,7 +6,7 @@
 #define SETASSORTEDARRAY_H
 
 
-#include <initializer_list>
+
 #include <iterator>
 #include <stdexcept>
 #include "Allocator.h"
@@ -99,7 +99,7 @@ public:
     // Операции над множествами.
     virtual SetOrderedArray<T>& operator&( const SetOrderedArray<T>& ) const;
     virtual SetOrderedArray<T>& operator|( const SetOrderedArray<T>& ) const;
-    virtual SetOrderedArray<T>& operator-( const SetBase<T>& ) const ;
+    virtual const SetOrderedArray<T>& operator-( const SetBase<T>& ) const ;
     virtual SetOrderedArray<T>& operator^( const SetOrderedArray<T>& ) const;
 
 
@@ -292,23 +292,25 @@ SetOrderedArray<T>& SetOrderedArray<T>::operator|( const SetOrderedArray<T>& set
 
 
 template<class T>
-SetOrderedArray<T>& SetOrderedArray<T>::operator-( const SetBase<T>& setB ) const
+const SetOrderedArray<T>& SetOrderedArray<T>::operator-( const SetBase<T>& setB ) const
 {
-    SetOrderedArray<T> setC;
+    const SetOrderedArray<T>& r_setC = SetOrderedArray();
+    SetOrderedArray& v_setC = const_cast<SetOrderedArray&>(r_setC);
+    const SetOrderedArray<T>& r_setB = static_cast<const SetOrderedArray&>(setB);
     int i, j;
 
-    for (i = j = 0; i < power && j < setB.power;) {
-        if (pData[i] >= setB.pData[j]) {
-            i += pData[i] == setB.pData[j];
+    for (i = j = 0; i < power && j < r_setB.power;) {
+        if (pData[i] >= r_setB.pData[j]) {
+            i += pData[i] == r_setB.pData[j];
             ++j;
         } else
-            setC.add(pData[i++]);
+            v_setC.add(pData[i++]);
     }
 
     while (i < power)
-        setC.add(pData[i++]);
+        v_setC.add(pData[i++]);
 
-    return setC;
+    return r_setC;
 }
 
 

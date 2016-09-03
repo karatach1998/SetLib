@@ -6,7 +6,7 @@
 #define SETBASE_H
 
 //#include <typeinfo>
-
+#include <initializer_list>
 
 
 template<typename T>
@@ -16,25 +16,26 @@ public:
     // Конструктор по умолчанию.
     SetBase() = default;
     virtual ~SetBase() = default;
+    SetBase( std::initializer_list<T> );
 
 
     virtual int getPower() const = 0;
 
 
     // Операции над множествами.
-    virtual SetBase<T>& operator&( const SetBase<T>& ) const = 0;
-    virtual SetBase<T>& operator|( const SetBase<T>& ) const = 0;
-    virtual SetBase<T>& operator-( const SetBase<T>& ) const = 0;
-    virtual SetBase<T>& operator^( const SetBase<T>& ) const = 0;
+//    virtual SetBase<T>& operator&( const SetBase<T>& ) const = 0;
+//    virtual SetBase<T>& operator|( const SetBase<T>& ) const = 0;
+    virtual const SetBase<T>& operator-( const SetBase<T>& ) const = 0;
+//    virtual SetBase<T>& operator^( const SetBase<T>& ) const = 0;
 
 
     // Операции сравнения множеств.
-    virtual bool operator==( const SetBase<T>& ) const = 0;
-    virtual bool operator!=( const SetBase<T>& ) const = 0;
-    virtual bool operator< ( const SetBase<T>& ) const = 0;
-    virtual bool operator<=( const SetBase<T>& ) const = 0;
-    virtual bool operator> ( const SetBase<T>& ) const = 0;
-    virtual bool operator>=( const SetBase<T>& ) const = 0;
+//    virtual bool operator==( const SetBase<T>& ) const = 0;
+//    virtual bool operator!=( const SetBase<T>& ) const = 0;
+//    virtual bool operator< ( const SetBase<T>& ) const = 0;
+//    virtual bool operator<=( const SetBase<T>& ) const = 0;
+//    virtual bool operator> ( const SetBase<T>& ) const = 0;
+//    virtual bool operator>=( const SetBase<T>& ) const = 0;
 
 
 //    void add( const T& );
