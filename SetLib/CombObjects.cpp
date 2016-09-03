@@ -5,6 +5,7 @@
 #include <functional>
 #include "CombObjects.h"
 #include "SetBase.h"
+#include "SetOrderedArray.h"
 
 
 
@@ -34,7 +35,7 @@ void CombObjects::placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<
     unsigned n = (unsigned int) set.getPower();
 
     std::function<void(SetBase<T>, unsigned)> genPlacing = [&]( SetBase<T> M, unsigned i ) {
-        for (T x : M) {
+        for (T x : static_cast<SetOrderedArray<T>>(M)) {
             v[i] = x;
             if (i == k - 1)
                 f(v);
