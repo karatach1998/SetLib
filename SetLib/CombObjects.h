@@ -20,7 +20,7 @@ public:
     static void bitVector( unsigned n, void (*f)( BinaryVector ));
 
     template <typename T>
-    static void placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<T> ));
+    static void placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<T>& ));
 };
 
 

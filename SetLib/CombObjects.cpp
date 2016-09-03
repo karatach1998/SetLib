@@ -28,7 +28,7 @@ void CombObjects::bitVector( unsigned n, void (*f)( std::vector<bool>& ))
 
 
 template<typename T>
-void CombObjects::placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<T> ))
+void CombObjects::placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<T>& ))
 {
     std::vector<T> v(k, 0);
     unsigned n = (unsigned int) set.getPower();
@@ -39,7 +39,7 @@ void CombObjects::placing( SetBase<T>& set, unsigned k, void (* f)( std::vector<
             if (i == k - 1)
                 f(v);
             else
-                genPlacing(M - {x}, i + 1);
+                genPlacing(M - std::initializer_list<T>(x), i + 1);
         }
     };
 
