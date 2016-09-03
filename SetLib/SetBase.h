@@ -5,7 +5,9 @@
 #ifndef SETBASE_H
 #define SETBASE_H
 
-#include <typeinfo>
+//#include <typeinfo>
+
+
 
 template<typename T>
 class SetBase
@@ -20,19 +22,19 @@ public:
 
 
     // Операции над множествами.
-    virtual SetBase operator&( const SetBase& ) const = 0;
-    virtual SetBase operator|( const SetBase& ) const = 0;
-    virtual SetBase operator-( const SetBase& ) const = 0;
-    virtual SetBase operator^( const SetBase& ) const = 0;
+    virtual SetBase<T>& operator&( const SetBase<T>& ) const = 0;
+    virtual SetBase<T>& operator|( const SetBase<T>& ) const = 0;
+    virtual SetBase<T>& operator-( const SetBase<T>& ) const = 0;
+    virtual SetBase<T>& operator^( const SetBase<T>& ) const = 0;
 
 
     // Операции сравнения множеств.
-    virtual bool operator==( const SetBase& ) const = 0;
-    virtual bool operator!=( const SetBase& ) const = 0;
-    virtual bool operator< ( const SetBase& ) const = 0;
-    virtual bool operator<=( const SetBase& ) const = 0;
-    virtual bool operator> ( const SetBase& ) const = 0;
-    virtual bool operator>=( const SetBase& ) const = 0;
+    virtual bool operator==( const SetBase<T>& ) const = 0;
+    virtual bool operator!=( const SetBase<T>& ) const = 0;
+    virtual bool operator< ( const SetBase<T>& ) const = 0;
+    virtual bool operator<=( const SetBase<T>& ) const = 0;
+    virtual bool operator> ( const SetBase<T>& ) const = 0;
+    virtual bool operator>=( const SetBase<T>& ) const = 0;
 
 
 //    void add( const T& );

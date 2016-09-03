@@ -97,10 +97,10 @@ public:
 
 
     // Операции над множествами.
-    virtual SetOrderedArray<T> operator&( const SetOrderedArray<T>& ) const;
-    virtual SetOrderedArray<T> operator|( const SetOrderedArray<T>& ) const;
-    virtual SetOrderedArray<T> operator-( const SetOrderedArray<T>& ) const;
-    virtual SetOrderedArray<T> operator^( const SetOrderedArray<T>& ) const;
+    virtual SetOrderedArray<T>& operator&( const SetOrderedArray<T>& ) const;
+    virtual SetOrderedArray<T>& operator|( const SetOrderedArray<T>& ) const;
+    virtual SetOrderedArray<T>& operator-( const SetBase<T>& ) const ;
+    virtual SetOrderedArray<T>& operator^( const SetOrderedArray<T>& ) const;
 
 
     // Операции сравнения множеств.
@@ -240,7 +240,7 @@ typename SetOrderedArray<T>::const_iterator SetOrderedArray<T>::cend() const
 
 
 template<class T>
-SetOrderedArray<T> SetOrderedArray<T>::operator&( const SetOrderedArray<T>& setB ) const
+SetOrderedArray<T>& SetOrderedArray<T>::operator&( const SetOrderedArray<T>& setB ) const
 {
     SetOrderedArray<T> setC;
 
@@ -261,7 +261,7 @@ SetOrderedArray<T> SetOrderedArray<T>::operator&( const SetOrderedArray<T>& setB
 
 
 template<class T>
-SetOrderedArray<T> SetOrderedArray<T>::operator|( const SetOrderedArray<T>& setB ) const
+SetOrderedArray<T>& SetOrderedArray<T>::operator|( const SetOrderedArray<T>& setB ) const
 {
     SetOrderedArray<T> setC;
     int i, j;
@@ -292,7 +292,7 @@ SetOrderedArray<T> SetOrderedArray<T>::operator|( const SetOrderedArray<T>& setB
 
 
 template<class T>
-SetOrderedArray<T> SetOrderedArray<T>::operator-( const SetOrderedArray<T>& setB ) const
+SetOrderedArray<T>& SetOrderedArray<T>::operator-( const SetBase<T>& setB ) const
 {
     SetOrderedArray<T> setC;
     int i, j;
@@ -314,7 +314,7 @@ SetOrderedArray<T> SetOrderedArray<T>::operator-( const SetOrderedArray<T>& setB
 
 
 template<class T>
-SetOrderedArray<T> SetOrderedArray<T>::operator^( const SetOrderedArray<T>& setB ) const
+SetOrderedArray<T>& SetOrderedArray<T>::operator^( const SetOrderedArray<T>& setB ) const
 {
     SetOrderedArray<T> setC;
     int i, j;
